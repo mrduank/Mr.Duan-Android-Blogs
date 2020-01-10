@@ -4,7 +4,7 @@
 
 #### 1.Activity的生命周期
 
-首先给出Activity的完整生命周期，如下图所示：![Android生命周期图](C:\Users\Administrator\Desktop\demo\12239413-1abcc02af12743e4.png)
+首先给出Activity的完整生命周期，如下图所示：![Android生命周期图](https://github.com/mrduank/Mr.Duan-Android-Blogs/blob/master/Android/activity生命周期图.png)
 
 ##### 生命周期几种常见情况分析：
 
