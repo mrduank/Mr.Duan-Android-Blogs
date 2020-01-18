@@ -130,6 +130,7 @@ startActivity(intent);
 ```
 
 然后，在MainActivity，才可以通过这个action name找到上面的Activity。下面两种方式分别通过setAction和构造方法方法设置Action，两种方式效果相同。
+
  1）setAction方法
 
 ```
