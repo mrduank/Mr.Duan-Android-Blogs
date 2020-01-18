@@ -93,3 +93,56 @@ startActivity(intent);
 * FLAG_ACTIVITY_SINGLE_TOP:  为 Activity 指定 singleTop 启动模式，效果和在 XML 中指定该模式相同。
 * FLAG_ACTIVITY_CLEAR_TOP:  具有此标记的 Activity，当它启动时，在同一个任务栈中所有位于它上面的 Activity 都要出栈。
 * FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS :具有这个标记的 Activity  不会出现在历史 Activity 的列表中，在某些情况下我们不希望用户通过历史列表回到我们的 Activity 的时候这个标记比较有用。它等同于在 XML 中指定 Activity 的属性 android:excludeFromRecents="true"。
+
+#### 3.Intent用法和总结
+
+显示Intent:
+
+1）构造方法传入Component，最常用的方式：
+
+```
+Intent intent = new Intent(this, SecondActivity.class);  
+startActivity(intent);  
+```
+
+2）setComponent方法
+
+```
+Intent intent = new Intent();    
+intent.setClass(this, SecondActivity.class);  
+//或者intent.setClassName(this, "com.example.app.SecondActivity");  
+//或者intent.setClassName(this.getPackageName(),"com.example.app.SecondActivity");            
+startActivity(intent);  
+```
+
+隐示Intent :  隐式，不明确指定启动哪个Activity，而是设置Action、Data、Category，让系统来筛选出合适的Activity。筛选是根据所有的`<intent-filter>`来筛选。
+
+例如在`AndroidManifest.xml`文件中，首先被调用的Activity要有一个带有`<intent-filter>`并且包含`<action>`的Activity，设定它能处理的Intent，并且`category`设为`"android.intent.category.DEFAULT"`。action的name是一个字符串，可以自定义，例如这里设成为`"test"`：
+
+```
+<activity  
+    android:name="com.example.app.SecondActivity">  
+    <intent-filter>  
+        <action android:name="test"/>  
+        <category android:name="android.intent.category.DEFAULT"/>  
+    </intent-filter>  
+</activity>  
+```
+
+然后，在MainActivity，才可以通过这个action name找到上面的Activity。下面两种方式分别通过setAction和构造方法方法设置Action，两种方式效果相同。
+ 1）setAction方法
+
+```
+Intent intent = new Intent();  
+intent.setAction("test");  
+startActivity(intent);  
+```
+
+2）构造方法直接设置Action
+
+```
+Intent intent = new Intent("test");  
+startActivity(intent);  
+```
+
+为了防止应用程序之间互相影响，一般命名方式是**包名+Action名**，例如这里命名`"test"`就很不合理了，就应该改成`"com.example.app.Test"`。
